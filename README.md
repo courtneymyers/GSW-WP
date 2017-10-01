@@ -1,0 +1,1 @@
+# Trellis/Bedrock WordPress setup
