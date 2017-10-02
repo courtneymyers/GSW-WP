@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7dd1fa86088a8392504ca256c2e140e",
+    "content-hash": "3f1d0b9ccb714f8c2c9fad6257a6ae44",
     "packages": [
         {
             "name": "composer/installers",
@@ -419,6 +419,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/debug-bar/"
+        },
+        {
+            "name": "wpackagist-plugin/debug-bar-timber",
+            "version": "0.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/debug-bar-timber/",
+                "reference": "tags/0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/debug-bar-timber.0.3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/debug-bar-timber/"
         },
         {
             "name": "wpackagist-plugin/gutenberg",
