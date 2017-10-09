@@ -4,10 +4,9 @@
  *
  * Methods for TimberHelper can be found in the /functions sub-directory
  *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
+ * @package GSW
  */
 
 $context = Timber::get_context();
-Timber::render( '404.twig', $context );
+
+Timber::render('404.twig', $context);

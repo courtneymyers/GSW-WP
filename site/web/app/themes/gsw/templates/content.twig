@@ -1,0 +1,25 @@
+{% extends "partials/base.twig" %}
+
+{% block content %}
+  <article id="post-{{ post.ID }}" class="post-type-{{ post.post_type }}">
+    <header>
+      {% if post.thumbnail %}
+        <img src="{{ post.thumbnail.src|resize(1200, 300) }}" alt="{{ post.thumbnail.alt }}">
+      {% endif %}
+
+      <h1>{{ post.title }}</h1>
+
+      {% if post.post_type != 'page' %}
+        <p>
+          <a href="{{ post.author.path }}">{{ post.author.name }}</a>
+          &bull;
+          {{ post.date }}
+        </p>
+      {% endif %}
+    </header>
+
+    <section>
+      {{ post.content }}
+    </section>
+  </article>
+{% endblock %}

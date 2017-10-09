@@ -1,10 +1,10 @@
 ## Team
 
-Your name or company
-http://yoursite.org
-@you_on_twitter
+Courtney Myers
+http://greatsouthwest.co
+@myerscourtney
 
 
 ## Site
 
-Software: Built with [Timber](http://upstatement.com/timber) by Upstatement
+Software: WordPress theme built with [Timber](http://upstatement.com/timber)

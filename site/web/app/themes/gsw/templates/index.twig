@@ -1,9 +1,28 @@
-{% extends "base.twig" %}
+{% extends "partials/base.twig" %}
 
 {% block content %}
-	<h2>{{foo}}</h2>
-	<p>{{qux}}</p>
-	{% for post in posts %}
-		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
-	{% endfor %}
+  {% if title %}
+    <h1>{{ title }}</h1>
+  {% endif %}
+
+  {% for post in posts %}
+    <article id="post-{{ post.ID }}" class="teaser post-type-{{ post.post_type }}">
+      <header>
+        <h2><a href="{{ post.link }}">{{ post.title }}</a></h2>
+        <p>
+          <a href="{{ post.author.path }}">{{ post.author.name }}</a>
+          &bull;
+          {{ post.date }}
+        </p>
+      </header>
+
+      {% if post.get_thumbnail %}
+        <img src="{{ post.thumbnail.src|resize(600, 150) }}" />
+      {% endif %}
+
+      <section>
+        <p>{{ post.preview }}</p>
+      </section>
+    </article>
+  {% endfor %}
 {% endblock %}

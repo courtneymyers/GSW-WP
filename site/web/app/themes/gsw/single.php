@@ -2,19 +2,22 @@
 /**
  * The Template for displaying all single posts
  *
+ * To generate specific templates for your posts you can use:
+ * '/gsw/templates/post-id.twig' or '/gsw/templates/post-type.twig'
+ *
  * Methods for TimberHelper can be found in the /lib sub-directory
  *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
+ * @package GSW
  */
 
 $context = Timber::get_context();
 $post = Timber::query_post();
 $context['post'] = $post;
 
-if ( post_password_required( $post->ID ) ) {
-	Timber::render( 'single-password.twig', $context );
-} else {
-	Timber::render( array( 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ), $context );
-}
+$templates = array(
+  'post-' . $post->ID . '.twig',
+  'post-' . $post->post_type . '.twig',
+  'content.twig'
+);
+
+Timber::render($templates, $context);

@@ -1,0 +1,45 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ wp_title ? "#{wp_title} | "}}{{ site.name }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ site.theme.link }}/style.css" />
+  <link rel="author" href="{{ site.theme.link }}/humans.txt" />
+  <link rel="pingback" href="{{ site.pingback_url }}" />
+  {{ function('wp_head') }}
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body class="gsw {{ body_class }}">
+  {# dump() #}
+
+  <header id="gsw-header" role="banner">
+    {% block header %}
+      <a class="gsw-logo" href="{{ site.url }}" rel="home">
+        {{- site.name -}}
+      </a>
+
+      <nav class="gsw-nav" role="navigation">
+        {% include "partials/menu.twig" with { "menu": menu.get_items } %}
+      </nav>
+    {% endblock %}
+  </header>
+
+  <main id="gsw-main" role="main">
+    {% block content %}
+      No content!
+    {% endblock %}
+  </main>
+
+  <footer id="gsw-footer" role="contentinfo">
+    {% block footer %}
+      <p>© {{ "now" | date('Y') }} Great Southwest</p>
+    {% endblock %}
+  </footer>
+
+  {{ function('wp_footer') }}
+  </body>
+</html>

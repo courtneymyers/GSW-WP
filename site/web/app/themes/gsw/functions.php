@@ -1,62 +1,81 @@
 <?php
+/**
+ * GSW theme functions and definitions
+ *
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package GSW
+ */
 
-if ( ! class_exists( 'Timber' ) ) {
-	add_action( 'admin_notices', function() {
-		echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php') ) . '</a></p></div>';
-	});
-	
-	add_filter('template_include', function($template) {
-		return get_stylesheet_directory() . '/static/no-timber.html';
-	});
-	
-	return;
+if (!class_exists('Timber')) {
+  add_action('admin_notices', function() {
+    echo '<div class="error">'
+      . '<p>The GSW theme requires the Timber plugin be activated. '
+      . 'Activate the plugin at: '
+      . '<a href="' . esc_url(admin_url('plugins.php#timber')) . '">'
+      . esc_url(admin_url('plugins.php'))
+      . '</a></p></div>';
+  });
+
+  add_filter('template_include', function($template) {
+    return get_stylesheet_directory() . '/templates/timber-inactive.html';
+  });
+
+  return;
 }
 
-Timber::$dirname = array('templates', 'views');
+Timber::$dirname = 'templates';
 
-class StarterSite extends TimberSite {
+class GSWSite extends TimberSite {
+  function __construct() {
+    add_theme_support('post-formats');
+    add_theme_support('post-thumbnails');
+    // add_theme_support('custom-background');
+    // add_theme_support('custom-header');
+    // add_theme_support('custom-logo');
+    add_theme_support('automatic-feed-links');
+    add_theme_support('menus');
+    add_theme_support('html5', array('search-form', 'gallery', 'caption'));
+    // add_theme_support('title-tag');
+    add_theme_support('customize-selective-refresh-widgets');
 
-	function __construct() {
-		add_theme_support( 'post-formats' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'menus' );
-		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
-		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
-		add_action( 'init', array( $this, 'register_post_types' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		parent::__construct();
-	}
+    add_action('init', array($this, 'register_post_types'));
+    add_action('init', array($this, 'register_taxonomies'));
+    add_filter('get_twig', array($this, 'add_to_twig'));
+    add_filter('timber_context', array($this, 'add_to_context'));
 
-	function register_post_types() {
-		//this is where you can register custom post types
-	}
+    parent::__construct();
+  }
 
-	function register_taxonomies() {
-		//this is where you can register custom taxonomies
-	}
+  function register_post_types() {
+    // custom post types
+  }
 
-	function add_to_context( $context ) {
-		$context['foo'] = 'bar';
-		$context['stuff'] = 'I am a value set in your functions.php file';
-		$context['notes'] = 'These values are available everytime you call Timber::get_context();';
-		$context['menu'] = new TimberMenu();
-		$context['site'] = $this;
-		return $context;
-	}
+  function register_taxonomies() {
+    // custom taxonomies
+  }
 
-	function myfoo( $text ) {
-		$text .= ' bar!';
-		return $text;
-	}
+  /* custom filter added to Twig */
+  function append_probably_twig_filter($text) {
+    $text .= ' (probably)';
+    return $text;
+  }
 
-	function add_to_twig( $twig ) {
-		/* this is where you can add your own functions to twig */
-		$twig->addExtension( new Twig_Extension_StringLoader() );
-		$twig->addFilter('myfoo', new Twig_SimpleFilter('myfoo', array($this, 'myfoo')));
-		return $twig;
-	}
+  function add_to_twig($twig) {
+    /* custom functions added to twig */
+    $twig->addExtension(new Twig_Extension_StringLoader());
+    $twig->addFilter(new Twig_SimpleFilter('probably',
+      array($this, 'append_probably_twig_filter')
+    ));
+    return $twig;
+  }
 
+  function add_to_context($context) {
+    $context['clover'] = '🍀';
+    $context['menu'] = new TimberMenu();
+    $context['site'] = $this;
+    return $context;
+  }
 }
 
-new StarterSite();
+new GSWSite();

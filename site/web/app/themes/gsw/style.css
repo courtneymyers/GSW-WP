@@ -1,5 +1,16 @@
 /*
- * Theme Name: My Timber Starter Theme
- * Description: Starter Theme to use with Timber
- * Author: Upstatement and YOU!
+ * Theme Name: GSW
+ * Description: Great Southwest WordPress theme built with Timber
+ * Author: Courtney Myers
 */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
