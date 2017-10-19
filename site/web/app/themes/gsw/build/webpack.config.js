@@ -61,6 +61,10 @@ if (TARGET === 'start') {
 // production webpack config
 if (TARGET === 'build') {
   module.exports = merge.smart(common, {
+    output: {
+      filename: '[name].[chunkhash:8].js',
+    },
+
     devtool: 'source-map',
 
     module: {
@@ -77,11 +81,11 @@ if (TARGET === 'build') {
 
     plugins: [
       new CleanWebpackPlugin(['dist']),
-      new ExtractTextWebpackPlugin({ filename: '[name].css' }),
+      new ExtractTextWebpackPlugin({ filename: '[name].[chunkhash:8].css' }),
       new UglifyJSPlugin({ sourceMap: true }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
-      })
+      }),
     ],
   });
 }
