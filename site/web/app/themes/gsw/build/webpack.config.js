@@ -83,6 +83,8 @@ if (TARGET === 'build') {
       new CleanWebpackPlugin(['dist']),
       new ExtractTextWebpackPlugin({ filename: '[name].[chunkhash:8].css' }),
       new UglifyJSPlugin({ sourceMap: true }),
+      new webpack.optimize.CommonsChunkPlugin({ name: 'runtime' }),
+      new webpack.HashedModuleIdsPlugin(),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
