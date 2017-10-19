@@ -24,15 +24,23 @@ const common = {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader?modules'],
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
+          { loader: 'postcss-loader' },
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader'],
+        use: [
+          { loader: 'file-loader' },
+        ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader'],
+        use: [
+          { loader: 'file-loader' }
+        ],
       },
     ],
   },
@@ -73,7 +81,10 @@ if (TARGET === 'build') {
           test: /\.css$/,
           use: ExtractTextWebpackPlugin.extract({
             fallback: 'style-loader',
-            use: ['css-loader?modules'],
+            use: [
+              { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
+              { loader: 'postcss-loader' },
+            ],
           }),
         },
       ],
