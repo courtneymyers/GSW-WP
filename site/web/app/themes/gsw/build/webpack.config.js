@@ -23,10 +23,23 @@ const common = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: { presets: ['env'], cacheDirectory: true }
+          },
+        ],
+      },
+      {
         test: /\.css$/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
+          {
+            loader: 'css-loader',
+            options: { modules: true, importLoaders: 1 }
+          },
           { loader: 'postcss-loader' },
         ],
       },
@@ -39,7 +52,7 @@ const common = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
-          { loader: 'file-loader' }
+          { loader: 'file-loader' },
         ],
       },
     ],
@@ -82,7 +95,10 @@ if (TARGET === 'build') {
           use: ExtractTextWebpackPlugin.extract({
             fallback: 'style-loader',
             use: [
-              { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
+              {
+                loader: 'css-loader',
+                options: { modules: true, importLoaders: 1 }
+              },
               { loader: 'postcss-loader' },
             ],
           }),
